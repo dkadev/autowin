@@ -1,23 +1,38 @@
-# Windows 10 Pro Clean install + Activation + Config + Programs + Dotfiles
+# Autowin
 
-- Windows update  + Restarts
+AutoWin is a tool designed to automate the deployment of a custom environment on Windows. It simplifies the installation process by executing some scripts that installs a set of tools and settings.
 
-## Activation
+## Pre-installation steps
 
-- Run admin CMD
-- cd into dotfiles directory
-- Run `activation.bat`
+- Install all Windows Updates + Reboot (Repeat until no more updates)
+- Run `activation.bat` in privileged CMD
 
-## Config
+    ```cmd
+    .\activation.bat
+    ```
 
-- Change HOSTNAME on windows ps1
-- Run admin PowerShell
-- `Set-ExecutionPolicy AllSigned`
-- `Set-ExecutionPolicy RemoteSigned -scope CurrentUser`
-- Run `windows.ps1`
+- Reboot
 
-## Programs
+## Settings
 
-- https://github.com/microsoft/winget-cli/releases/
-- Run non-privileged PowerShell
-- Run `packages.ps1`
+- Set HOSTNAME on `windows.ps1`
+- Run `windows.ps1` in privileged PowerShell
+
+    ```powershell
+    Set-ExecutionPolicy AllSigned
+    Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+    .\windows.ps1
+    ```
+
+- Reboot
+
+## Tools
+
+- Get https://github.com/microsoft/winget-cli/releases/latest
+- Run `packages.ps1` in non-privileged PowerShell
+
+    ```powershell
+    .\packages.ps1
+    ```
+
+- Reboot

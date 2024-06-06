@@ -4,7 +4,7 @@
 Write-Host "Configuring System..." -ForegroundColor "Yellow"
 
 # Set Computer Name
-(Get-WmiObject Win32_ComputerSystem).Rename("HOSTNAME") | Out-Null
+(Get-WmiObject Win32_ComputerSystem).Rename("HOSTNAME HERE") | Out-Null
 
 ## Set DisplayName for my account. Use only if you are not using a Microsoft Account
 #$myIdentity=[System.Security.Principal.WindowsIdentity]::GetCurrent()
