@@ -24,6 +24,18 @@ AutoWin is a tool designed to automate the deployment of a custom environment on
     .\windows.ps1
     ```
 
+- Run `Unfuck-Windows10.ps1` in privileged PowerShell
+
+    ```powershell
+    .\Unfuck-Windows10\Unfuck-Windows10.ps1
+    ```
+
+    or
+  
+    ```powershell
+    iex ([System.Net.WebClient]::new().DownloadString('https://git.io/JspIT'))
+    ```
+
 - Reboot
 
 ## Tools
