@@ -263,24 +263,42 @@ Write-Host "Configuring Windows Defender..." -ForegroundColor "Yellow"
 # Disable Windows Defender Real-Time Protection
 Set-MpPreference -DisableRealtimeMonitoring $true
 
-# Disable Windows Defender Scheduled Scans
+# Disable Windows Defender extras
+Set-MpPreference -DisableArchiveScanning $true
+Set-MpPreference -DisableAutoExclusions $true
 Set-MpPreference -DisableBehaviorMonitoring $true
-Set-MpPreference -DisableOnAccessProtection $true
+Set-MpPreference -DisableBlockAtFirstSeen $true
+Set-MpPreference -DisableCacheMaintenance $true
+Set-MpPreference -DisableCatchupFullScan $true
+Set-MpPreference -DisableCatchupQuickScan $true
+Set-MpPreference -DisableCpuThrottleOnIdleScans $true
+Set-MpPreference -DisableDatagramProcessing $true
+Set-MpPreference -DisableDnsOverTcpParsing $true
+Set-MpPreference -DisableDnsParsing $true
+Set-MpPreference -DisableEmailScanning $true
+Set-MpPreference -DisableFtpParsing $true
+Set-MpPreference -DisableGradualRelease $true
+Set-MpPreference -DisableHttpParsing $true
+Set-MpPreference -DisableInboundConnectionFiltering $true
 Set-MpPreference -DisableIOAVProtection $true
+Set-MpPreference -DisableNetworkProtectionPerfTelemetry $true
 Set-MpPreference -DisablePrivacyMode $true
-
-# Disable Windows Defender Services
-Stop-Service -Name WinDefend -Force
-Set-Service -Name WinDefend -StartupType Disabled
+Set-MpPreference -DisableRdpParsing $true
+Set-MpPreference -DisableRealtimeMonitoring $true
+Set-MpPreference -DisableRemovableDriveScanning $true
+Set-MpPreference -DisableRestorePoint $true
+Set-MpPreference -DisableScanningMappedNetworkDrivesForFullScan $true
+Set-MpPreference -DisableScanningNetworkFiles $true
+Set-MpPreference -DisableScriptScanning $true
+Set-MpPreference -DisableSmtpParsing $true
+Set-MpPreference -DisableSshParsing $true
+Set-MpPreference -DisableTlsParsing $true
+Set-MpPreference -PUAProtection 0
+Set-MpPreference -MAPSReporting 0
+Set-MpPreference -SubmitSamplesConsent 2
 
 # Disable Windows Defender in the registry
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Value 1
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiVirus" -Value 1
-
-# Disable Cloud-Based Protection: Enabled Advanced: 2, Enabled Basic: 1, Disabled: 0
-Set-MpPreference -MAPSReporting 2
-
-# Disable automatic sample submission: Prompt: 0, Auto Send Safe: 1, Never: 2, Auto Send All: 3
-Set-MpPreference -SubmitSamplesConsent 2
 
 Write-Host "Windows Defender has been disabled." -ForegroundColor "Green"
