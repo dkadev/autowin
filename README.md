@@ -1,55 +1,61 @@
-# Autowin
+# AutoWin
 
-AutoWin is a tool designed to automate the deployment of a custom environment on Windows. It simplifies the installation process by executing some scripts that installs a set of tools and settings.
+AutoWin is a comprehensive tool designed to automate the deployment of a custom Windows environment. It streamlines the installation process through a series of PowerShell and batch scripts that configure settings and install essential tools.
 
-## Pre-installation steps
+## 🚀 Quick Start
 
-- Install all Windows Updates + Reboot (Repeat until no more updates)
-- Run `activation.bat` in privileged CMD
+### 1. System Preparation
+- Install all Windows Updates and reboot (repeat until no more updates are available)
 
-    ```cmd
-    .\activation.bat
-    ```
+### 2. Windows Activation
+Choose one of the available activation methods:
 
-- Reboot
+#### Option A: HWID Activation (Recommended)
+```cmd
+.\Activation\HWID\HWID.bat
+```
 
-## Settings
+#### Option B: KMS38 Activation
+```cmd
+.\Activation\KMS38\KMS38.bat
+```
 
-- Set HOSTNAME on `windows.ps1`
-- Run `windows.ps1` in privileged PowerShell
+> **Note:** Run the chosen activation script in an **Administrator Command Prompt**
 
-    ```powershell
-    Set-ExecutionPolicy AllSigned
-    Set-ExecutionPolicy RemoteSigned -scope CurrentUser
-    .\windows.ps1
-    ```
+- Reboot after activation
 
-- Run `Unfuck-Windows10.ps1` in privileged PowerShell
+### 3. System Configuration
+1. **Set your computer hostname** in `windows.ps1`
+2. **Configure PowerShell execution policy** and run system settings:
+   ```powershell
+   Set-ExecutionPolicy Unrestricted -Scope Process -Force
+   .\windows.ps1
+   ```
 
-    ```powershell
-    .\Unfuck-Windows10\Unfuck-Windows10.ps1
-    ```
+3. **Run Windows debloating script** in Administrator PowerShell:
+   ```powershell
+   Set-ExecutionPolicy Unrestricted -Scope Process -Force
+   .\Unfuck-Windows10\Unfuck-Windows10.ps1
+   ```
 
-- Reboot
+4. **Reboot** to apply all system changes
 
-## Tools
+### 4. Software Installation
+1. **Verify winget is available** or download from [Microsoft's latest release](https://github.com/microsoft/winget-cli/releases/latest):
+   ```powershell
+   winget --version
+   ```
 
-- Check for winget or download it from the latest release [here](https://github.com/microsoft/winget-cli/releases/latest)
-
-    ```powershell
-    winget --version
-    ```
-
-- Run `packages.ps1` in non-privileged PowerShell
-
-    ```powershell
-    .\packages.ps1
-    ```
+2. **Install software packages** in regular PowerShell (no admin required):
+   ```powershell
+   Set-ExecutionPolicy Unrestricted -Scope Process -Force
+   .\packages.ps1
+   ```
 
 - Reboot
 
 ## Acknowledgements
 
-- Thanks to the KMS38 bug
+- [massgravel](https://github.com/massgravel/Microsoft-Activation-Scripts) ❤️ 
 - Inspired on `jayharris` [dotfiles](https://github.com/jayharris/dotfiles-windows) powershell scripts.
 - Great work from `tylerdotrar` with the debloating and privacy stuff - [Unfuck-Windows10](https://github.com/tylerdotrar/Unfuck-Windows10)
