@@ -1,6 +1,7 @@
 # KMS38 Documentation
 
-> [!WARNING] KMS38 Deprecation and Removal
+> [!WARNING]
+> KMS38 Deprecation and Removal
 > Windows uses a clip-based KMS license to migrate the KMS grace period during feature upgrades. For example, if 100 days remain in the KMS grace period and Windows is upgraded, this migration allows the remaining days to carry over. The process relies on the *gatherosstate.exe* file to transfer the license. KMS38 takes advantage of this mechanism by extending the grace period until the year 2038.
 > 
 > Starting with build **26040**, Microsoft removed *gatherosstate.exe* from the ISO. As a result, after a feature or in-place upgrade, the KMS grace period no longer carries over and resets to zero, requiring reconnection to a KMS server for renewal.
