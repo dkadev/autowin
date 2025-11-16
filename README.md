@@ -32,15 +32,24 @@ Choose one of the available activation methods:
    .\windows.ps1
    ```
 
-3. **Run Windows debloating script** in Administrator PowerShell:
+### 4. System Debloating (Optional)
+
+Remove Windows bloatware and improve privacy using Win11Debloat:
+
+1. **Download Win11Debloat**: Get the [latest version](https://github.com/Raphire/Win11Debloat/releases/latest) and extract to your desired location
+2. **Run the debloat script** in Administrator PowerShell:
    ```powershell
    Set-ExecutionPolicy Unrestricted -Scope Process -Force
-   .\Unfuck-Windows10\Unfuck-Windows10.ps1
+   cd c:\Win11Debloat  # Navigate to extracted folder
+   .\Win11Debloat.ps1
    ```
+3. **Follow the on-screen instructions** carefully to customize your debloating options
+
+> **Tip:** This script supports [command-line parameters](https://github.com/Raphire/Win11Debloat/wiki/How-To-Use#parameters) for advanced customization.
 
 4. **Reboot** to apply all system changes
 
-### 4. Software Installation
+### 5. Software Installation
 1. **Verify winget is available** or download from [Microsoft's latest release](https://github.com/microsoft/winget-cli/releases/latest):
    ```powershell
    winget --version
@@ -57,5 +66,6 @@ Choose one of the available activation methods:
 ## Acknowledgements
 
 - [massgravel](https://github.com/massgravel/Microsoft-Activation-Scripts) ❤️ 
-- Inspired on `jayharris` [dotfiles](https://github.com/jayharris/dotfiles-windows) powershell scripts.
-- Great work from `tylerdotrar` with the debloating and privacy stuff - [Unfuck-Windows10](https://github.com/tylerdotrar/Unfuck-Windows10)
+- [jayharris](https://github.com/jayharris/dotfiles-windows) dotfiles powershell scripts
+- [tylerdotrar](https://github.com/tylerdotrar/Unfuck-Windows10) for Unfuck-Windows10 project
+- [Raphire](https://github.com/Raphire/Win11Debloat) for Win11Debloat project
