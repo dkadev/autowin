@@ -1,0 +1,9 @@
+# AutoWin - Winget Packages Configuration
+# One package ID per line
+# Lines starting with # are comments and will be ignored
+# Use exact winget package IDs for best results
+
+7zip.7zip
+Git.Git
+KeePassXCTeam.KeePassXC
+Mozilla.Firefox

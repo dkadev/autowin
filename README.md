@@ -66,10 +66,10 @@ Remove Windows bloatware and improve privacy using Win11Debloat:
 4. **Reboot** to apply all system changes
 
 ### 5. Software Installation
-1. **Verify winget is available** or download from [Microsoft's latest release](https://github.com/microsoft/winget-cli/releases/latest):
-   ```powershell
-   winget --version
-   ```
+
+1. **Customize your software selection** (optional):
+   - Edit files in the `Packages/` directory to add/remove packages
+   - See `Packages/README.md` for details
 
 2. **Install software packages** in regular PowerShell (no admin required):
    ```powershell

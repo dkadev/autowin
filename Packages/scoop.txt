@@ -1,0 +1,6 @@
+# AutoWin - Scoop Packages Configuration
+# One package name per line
+# Lines starting with # are comments and will be ignored
+
+wiztree
+mobaxterm
