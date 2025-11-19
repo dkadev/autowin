@@ -32,6 +32,22 @@ Choose one of the available activation methods:
    .\windows.ps1
    ```
 
+3. **Reboot** after system configuration (especially if WSL2 was enabled)
+
+#### System Configuration Features
+
+**Always Applied:**
+- Computer name configuration
+- Essential privacy settings (advertising ID, telemetry, content delivery)
+- Desktop personalization (solid black background)
+- Accessibility improvements (disable narrator hotkey, window snap tweaks)
+- Auto-correct disabled
+
+**Optional Configurations (User Choice):**
+- **Windows Defender**: Complete disable with all real-time protection features
+- **Enhanced Privacy**: Block app access to camera, microphone, notifications, and account info
+- **WSL2 Setup**: Enable Windows Subsystem for Linux and install chosen Linux distribution
+
 ### 4. System Debloating (Optional)
 
 Remove Windows bloatware and improve privacy using Win11Debloat:

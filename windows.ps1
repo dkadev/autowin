@@ -14,9 +14,9 @@ try {
 
 
 ###############################################################################
-### Privacy                                                                   #
+### Privacy - Default Settings                                               #
 ###############################################################################
-Write-Host "Configuring Privacy..." -ForegroundColor "Yellow"
+Write-Host "Configuring Privacy (Default)..." -ForegroundColor "Yellow"
 
 # General: Don't let apps use advertising ID for experiences across apps: Allow: 1, Disallow: 0
 if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" -Type Folder | Out-Null}
@@ -39,10 +39,10 @@ Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Input\TIPC" "Enabled" 0
 Set-ItemProperty "HKCU:\Control Panel\International\User Profile" "HttpAcceptLanguageOptOut" 1
 
 # General: Disable SmartGlass: Enable: 1, Disable: 0
-#Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\SmartGlass" "UserAuthPolicy" 0
+Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\SmartGlass" "UserAuthPolicy" 0
 
 # General: Disable SmartGlass over BlueTooth: Enable: 1, Disable: 0
-#Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\SmartGlass" "BluetoothPolicy" 0
+Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\SmartGlass" "BluetoothPolicy" 0
 
 # General: Disable suggested content in settings app: Enable: 1, Disable: 0
 Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" "SubscribedContent-338393Enabled" 0
@@ -62,17 +62,7 @@ Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliver
 if (!(Test-Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer")) {New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -Type Folder | Out-Null}
 Set-ItemProperty "HKCU:\Software\Policies\Microsoft\Windows\Explorer" "DisableSearchBoxSuggestions" 1
 
-# Camera: Don't let apps use camera: Allow, Deny
-# if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam" -Type Folder | Out-Null}
-# Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam" "Value" "Deny"
 
-# Microphone: Don't let apps use microphone: Allow, Deny
-# if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone" -Type Folder | Out-Null}
-# Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone" "Value" "Deny"
-
-# Notifications: Don't let apps access notifications: Allow, Deny
-# if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userNotificationListener")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userNotificationListener" -Type Folder | Out-Null}
-# Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userNotificationListener" "Value" "Deny"
 
 # Speech, Inking, & Typing: Stop "Getting to know me"
 if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\InputPersonalization")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\InputPersonalization" -Type Folder | Out-Null}
@@ -86,9 +76,34 @@ if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Speech_OneCore\Settings")) {New-Item -
 if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy" -Type Folder | Out-Null}
 Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy" "HasAccepted" 0
 
-# Account Info: Don't let apps access name, picture, and other account info: Allow, Deny
-# if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation" -Type Folder | Out-Null}
-# Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation" "Value" "Deny"
+
+###############################################################################
+### Privacy - Optional Settings                                              #
+###############################################################################
+$configureOptionalPrivacy = Read-Host "Do you want to configure additional privacy settings? (y/n) [default: n]"
+if ($configureOptionalPrivacy -eq "y" -or $configureOptionalPrivacy -eq "yes") {
+    Write-Host "Configuring Privacy (Optional)..." -ForegroundColor "Yellow"
+    
+    # Account Info: Don't let apps access name, picture, and other account info: Allow, Deny
+    if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation" -Type Folder | Out-Null}
+    Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation" "Value" "Deny"
+    
+    # Camera: Don't let apps use camera: Allow, Deny
+    if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam" -Type Folder | Out-Null}
+    Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam" "Value" "Deny"
+    
+    # Microphone: Don't let apps use microphone: Allow, Deny
+    if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone" -Type Folder | Out-Null}
+    Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone" "Value" "Deny"
+    
+    # Notifications: Don't let apps access notifications: Allow, Deny
+    if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userNotificationListener")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userNotificationListener" -Type Folder | Out-Null}
+    Set-ItemProperty "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userNotificationListener" "Value" "Deny"
+    
+    Write-Host "Optional privacy settings configured." -ForegroundColor "Green"
+} else {
+    Write-Host "Skipping optional privacy settings." -ForegroundColor "Yellow"
+}
 
 # Contacts: Don't let apps access contacts: Allow, Deny
 if (!(Test-Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\contacts")) {New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\contacts" -Type Folder | Out-Null}
@@ -210,13 +225,13 @@ try {
 }
 
 # Disable "Window Snap" Automatic Window Arrangement: Enable: 1, Disable: 0
-# Write-Host "Disable 'Window Snap' Automatic Window Arrangement" 
-# try {
-#     Set-ItemProperty "HKCU:\Control Panel\Desktop" "WindowArrangementActive" 0
-#     Write-Host "OK" -ForegroundColor "Green"
-# } catch {
-#     Write-Host "ERROR: $_" -ForegroundColor "Red"
-# }
+Write-Host "Disable 'Window Snap' Automatic Window Arrangement" 
+try {
+    Set-ItemProperty "HKCU:\Control Panel\Desktop" "WindowArrangementActive" 0
+    Write-Host "OK" -ForegroundColor "Green"
+} catch {
+    Write-Host "ERROR: $_" -ForegroundColor "Red"
+}
 
 # Disable automatic fill to space on Window Snap: Enable: 1, Disable: 0
 Write-Host "Disable automatic fill to space on Window Snap" 
@@ -256,49 +271,97 @@ try {
 
 
 ###############################################################################
-### Windows Defender                                                          #
+### Windows Defender (Optional)                                              #
 ###############################################################################
-Write-Host "Configuring Windows Defender..." -ForegroundColor "Yellow"
+$disableDefender = Read-Host "Do you want to disable Windows Defender? (y/n) [default: n]"
+if ($disableDefender -eq "y" -or $disableDefender -eq "yes") {
+    Write-Host "Configuring Windows Defender..." -ForegroundColor "Yellow"
+    
+    try {
+        # Disable Windows Defender Real-Time Protection
+        Set-MpPreference -DisableRealtimeMonitoring $true
+        
+        # Disable Windows Defender extras
+        Set-MpPreference -DisableArchiveScanning $true
+        Set-MpPreference -DisableAutoExclusions $true
+        Set-MpPreference -DisableBehaviorMonitoring $true
+        Set-MpPreference -DisableBlockAtFirstSeen $true
+        Set-MpPreference -DisableCacheMaintenance $true
+        Set-MpPreference -DisableCatchupFullScan $true
+        Set-MpPreference -DisableCatchupQuickScan $true
+        Set-MpPreference -DisableCpuThrottleOnIdleScans $true
+        Set-MpPreference -DisableDatagramProcessing $true
+        Set-MpPreference -DisableDnsOverTcpParsing $true
+        Set-MpPreference -DisableDnsParsing $true
+        Set-MpPreference -DisableEmailScanning $true
+        Set-MpPreference -DisableFtpParsing $true
+        Set-MpPreference -DisableGradualRelease $true
+        Set-MpPreference -DisableHttpParsing $true
+        Set-MpPreference -DisableInboundConnectionFiltering $true
+        Set-MpPreference -DisableIOAVProtection $true
+        Set-MpPreference -DisableNetworkProtectionPerfTelemetry $true
+        Set-MpPreference -DisablePrivacyMode $true
+        Set-MpPreference -DisableRdpParsing $true
+        Set-MpPreference -DisableRealtimeMonitoring $true
+        Set-MpPreference -DisableRemovableDriveScanning $true
+        Set-MpPreference -DisableRestorePoint $true
+        Set-MpPreference -DisableScanningMappedNetworkDrivesForFullScan $true
+        Set-MpPreference -DisableScanningNetworkFiles $true
+        Set-MpPreference -DisableScriptScanning $true
+        Set-MpPreference -DisableSmtpParsing $true
+        Set-MpPreference -DisableSshParsing $true
+        Set-MpPreference -DisableTlsParsing $true
+        Set-MpPreference -PUAProtection 0
+        Set-MpPreference -MAPSReporting 0
+        Set-MpPreference -SubmitSamplesConsent 2
+        
+        # Disable Windows Defender in the registry
+        if (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender")) {New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Type Folder | Out-Null}
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Value 1
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiVirus" -Value 1
+        
+        Write-Host "Windows Defender has been disabled." -ForegroundColor "Green"
+    } catch {
+        Write-Host "Error disabling Windows Defender: $_" -ForegroundColor "Red"
+    }
+} else {
+    Write-Host "Keeping Windows Defender enabled." -ForegroundColor "Yellow"
+}
 
-# Disable Windows Defender Real-Time Protection
-Set-MpPreference -DisableRealtimeMonitoring $true
 
-# Disable Windows Defender extras
-Set-MpPreference -DisableArchiveScanning $true
-Set-MpPreference -DisableAutoExclusions $true
-Set-MpPreference -DisableBehaviorMonitoring $true
-Set-MpPreference -DisableBlockAtFirstSeen $true
-Set-MpPreference -DisableCacheMaintenance $true
-Set-MpPreference -DisableCatchupFullScan $true
-Set-MpPreference -DisableCatchupQuickScan $true
-Set-MpPreference -DisableCpuThrottleOnIdleScans $true
-Set-MpPreference -DisableDatagramProcessing $true
-Set-MpPreference -DisableDnsOverTcpParsing $true
-Set-MpPreference -DisableDnsParsing $true
-Set-MpPreference -DisableEmailScanning $true
-Set-MpPreference -DisableFtpParsing $true
-Set-MpPreference -DisableGradualRelease $true
-Set-MpPreference -DisableHttpParsing $true
-Set-MpPreference -DisableInboundConnectionFiltering $true
-Set-MpPreference -DisableIOAVProtection $true
-Set-MpPreference -DisableNetworkProtectionPerfTelemetry $true
-Set-MpPreference -DisablePrivacyMode $true
-Set-MpPreference -DisableRdpParsing $true
-Set-MpPreference -DisableRealtimeMonitoring $true
-Set-MpPreference -DisableRemovableDriveScanning $true
-Set-MpPreference -DisableRestorePoint $true
-Set-MpPreference -DisableScanningMappedNetworkDrivesForFullScan $true
-Set-MpPreference -DisableScanningNetworkFiles $true
-Set-MpPreference -DisableScriptScanning $true
-Set-MpPreference -DisableSmtpParsing $true
-Set-MpPreference -DisableSshParsing $true
-Set-MpPreference -DisableTlsParsing $true
-Set-MpPreference -PUAProtection 0
-Set-MpPreference -MAPSReporting 0
-Set-MpPreference -SubmitSamplesConsent 2
-
-# Disable Windows Defender in the registry
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Value 1
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiVirus" -Value 1
-
-Write-Host "Windows Defender has been disabled." -ForegroundColor "Green"
+###############################################################################
+### WSL2 (Optional)                                                          #
+###############################################################################
+$enableWSL = Read-Host "Do you want to enable WSL2? (y/n) [default: n]"
+if ($enableWSL -eq "y" -or $enableWSL -eq "yes") {
+    Write-Host "Configuring WSL2..." -ForegroundColor "Yellow"
+    
+    try {
+        # Enable WSL and Virtual Machine Platform
+        Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart
+        Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
+        
+        Write-Host "WSL2 features enabled. Please reboot and run 'wsl --set-default-version 2' after reboot." -ForegroundColor "Green"
+        
+        # Ask for distro preference
+        Write-Host "Available distributions:" -ForegroundColor "Cyan"
+        Write-Host "1. Ubuntu (default)"
+        Write-Host "2. Debian"
+        Write-Host "3. Kali Linux"
+        Write-Host "4. Skip distro installation"
+        
+        $distroChoice = Read-Host "Choose a distribution (1-4) [default: 1]"
+        
+        switch ($distroChoice) {
+            "2" { Write-Host "After reboot, run: wsl --install -d Debian" -ForegroundColor "Cyan" }
+            "3" { Write-Host "After reboot, run: wsl --install -d kali-linux" -ForegroundColor "Cyan" }
+            "4" { Write-Host "Skipping distro installation." -ForegroundColor "Yellow" }
+            default { Write-Host "After reboot, run: wsl --install -d Ubuntu" -ForegroundColor "Cyan" }
+        }
+        
+    } catch {
+        Write-Host "Error enabling WSL2: $_" -ForegroundColor "Red"
+    }
+} else {
+    Write-Host "Skipping WSL2 configuration." -ForegroundColor "Yellow"
+}
